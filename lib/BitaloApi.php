@@ -4,8 +4,8 @@
 class BitaloApi 
 {
     // Bitalo API endpoints
-    const API_URL = "http://bitalo.com/api/1";
-    const AUTH_URL = "http://bitalo.com/auth";
+    const API_URL = "https://bitalo.com/api/1";
+    const AUTH_URL = "https://bitalo.com/auth";
 
     // User Agent string for sending requests
     public $ua_string = "BitaloApi/v1.0";
@@ -16,7 +16,7 @@ class BitaloApi
     // Client secret used to authenticate requests
     private $client_secret = "";
 
-    // Debug mode (doesn't use strict SSL checks)
+    // Debug mode (doesn't use strict SSL checks) - DON'T USE IN PRODUCTION
     private $debug = false;
 
     // Currently used access token
@@ -58,6 +58,15 @@ class BitaloApi
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => $this->request_timeout,
         ];
+
+        // Set up SSL cert and options (depending on whether debug option is on)
+        if (!$this->debug) {
+            $curl_options[CURLOPT_CAINFO] = dirname(__FILE__) . '/bitalo-ca.crt';
+        }
+        else {
+            $curl_options[CURLOPT_SSL_VERIFYHOST] = 0;
+            $curl_options[CURLOPT_SSL_VERIFYPEER] = 0;
+        }
 
         // Set up HTTP headers array
         $http_headers = [
