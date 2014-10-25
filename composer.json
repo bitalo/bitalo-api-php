@@ -1,0 +1,21 @@
+{
+    "name": "bitalo/bitalo-api-php",
+    "description": "Bitalo API PHP Client Library",
+    "keywords": ["bitcoin", "curl", "rest", "bitalo", "api", "requests"],
+    "authors": [
+        {
+            "name": "Maciej Trębacz",
+            "email": "maciej@trebacz.org",
+            "homepage": "https://github.com/bitalo"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "php": ">=5.4"
+    },
+	"autoload": {
+		"psr-0": {
+			"Bitalo": "lib"
+		}
+	}
+}
