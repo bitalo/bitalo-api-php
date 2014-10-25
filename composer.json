@@ -1,21 +1,31 @@
 {
-    "name": "bitalo/bitalo-api-php",
-    "description": "Bitalo API PHP Client Library",
-    "keywords": ["bitcoin", "curl", "rest", "bitalo", "api", "requests"],
-    "authors": [
-        {
-            "name": "Maciej Trębacz",
-            "email": "maciej@trebacz.org",
-            "homepage": "https://github.com/bitalo"
-        }
-    ],
-    "require": {
-        "ext-curl": "*",
-        "php": ">=5.4"
-    },
+	"name": "bitalo/bitalo-api-php",
+	"description": "Bitalo API PHP Client Library",
+	"keywords": ["bitcoin", "curl", "rest", "bitalo", "api", "requests"],
+	"authors": [
+		{
+			"name": "Maciej Trębacz",
+			"email": "maciej@bitalo.com",
+			"homepage": "https://github.com/bitalo"
+		},
+		{
+			"name": "Peter Limbach",
+			"email": "peter@bitalo.com",
+			"homepage": "https://pelim.github.io"
+		}
+	],
+	"require": {
+		"ext-curl": "*",
+		"php": ">=5.3"
+	},
 	"autoload": {
 		"psr-0": {
 			"Bitalo": "lib"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"composer-dev": "0.1-dev"
 		}
 	}
 }

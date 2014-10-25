@@ -1,10 +1,11 @@
-###Bitalo API PHP Client Library###
+#Bitalo API PHP Client Library#
 
-##Make calls to Bitalo API using PHP##
+###Make calls to Bitalo API using PHP###
 
-**please contact development@bitlalo.com**
+please contact development@bitlalo.com
 
-##Requirements##
+###Requirements###
 
-PHP 5.4
+PHP >= 5.3
+
 
