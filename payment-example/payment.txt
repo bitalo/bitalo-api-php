@@ -1,0 +1,13 @@
+stdClass Object
+(
+    [status] => ok
+    [payment] => stdClass Object
+        (
+            [payment_id] => 095840082e
+            [address] => miPEAK2jsnVhfYdmw5JwEKR9PtvgFtxfxJ
+            [amount] => 2.4501
+            [created_on] => 1414920710
+            [status] => complete
+        )
+
+)

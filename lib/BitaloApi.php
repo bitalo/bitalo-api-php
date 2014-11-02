@@ -4,8 +4,8 @@
 class BitaloApi 
 {
     // Bitalo API endpoints
-    const API_URL = "https://bitalo.com/api/1";
-    const AUTH_URL = "https://bitalo.com/auth";
+    const API_URL = "http://local.bitalo.com/api/1";
+    const AUTH_URL = "http://local.bitalo.com/auth";
 
     // Error codes from API
     const ERROR_AUTH_DENIED = 21;
@@ -36,7 +36,7 @@ class BitaloApi
     private $client_secret = "";
 
     // Debug mode (doesn't use strict SSL checks) - DON'T USE IN PRODUCTION
-    private $debug = false;
+    private $debug = true;
 
     // Currently used access token
     private $access_token;
@@ -48,6 +48,7 @@ class BitaloApi
      * Bitalo API class constructor
      * @param string $id Client (application) ID
      * @param string $secret Client secret
+     * @param boolean $setup_state If we should generate 'state' parameter and store it in session
      */
     public function __construct($id, $secret, $setup_state = false) 
     {
@@ -144,7 +145,7 @@ class BitaloApi
         // Decode response
         $json = json_decode($response);
         if ($json === NULL) {
-            throw new BitaloApi_Exception("Cannot decode JSON response",
+            throw new BitaloApi_Exception("Cannot decode JSON response in request $url: " . $response,
                 BitaloApi_Exception::REQUEST_DECODE);
         }
 
@@ -262,6 +263,35 @@ class BitaloApi
         }
 
         return $this->request("GET", self::API_URL . "/user/profile/");
+    }
+
+    /**
+     * Creates a new Bitcoin payment
+     * @param string address Bitcoin address to sent the payment to
+     * @param double amount Amount of Bitcoin to be sent
+     * @param string callback URL of script that will be called when payment is complete
+     * @returns array response containing payment_id
+     */
+    public function createNewPayment($address, $amount, $callback) {
+        return $this->request("POST", self::API_URL . "/payment", [
+            "address" => $address,
+            "amount" => $amount,
+            "callback" => $callback,
+            "client_id" => $this->client_id,
+            "client_secret" => $this->client_secret
+        ]);
+    }
+
+    /**
+     * Gets information about a payment
+     * @param string payment_id Payment identifier
+     * @returns array response containing payment details
+     */
+    public function getPaymentInfo($payment_id) {
+        return $this->request("GET", self::API_URL . "/payment/" . $payment_id, [
+            "client_id" => $this->client_id,
+            "client_secret" => $this->client_secret
+        ]);
     }
 
     /**
