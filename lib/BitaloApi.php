@@ -4,8 +4,8 @@
 class BitaloApi 
 {
     // Bitalo API endpoints
-    const API_URL = "http://local.bitalo.com/api/1";
-    const AUTH_URL = "http://local.bitalo.com/auth";
+    const API_URL = "https://bitalo.com/api/1";
+    const AUTH_URL = "https://bitalo.com/auth";
 
     // Error codes from API
     const ERROR_AUTH_DENIED = 21;
@@ -263,6 +263,21 @@ class BitaloApi
         }
 
         return $this->request("GET", self::API_URL . "/user/profile/");
+    }
+
+    /**
+     * Fetches user wallet list
+     * @returns array "wallets" array containing wallet details
+     */
+    public function getUserWallets() 
+    {
+        // Token is required for this method
+        if (!$this->access_token) {
+            throw new BitaloApi_Exception("Token is required for calling " . __FUNCTION__, 
+                BitaloApi_Exception::TOKEN_MISSING);
+        }
+
+        return $this->request("GET", self::API_URL . "/user/wallets/");
     }
 
     /**
